@@ -1,0 +1,11 @@
+{
+  "incidentsDate": "2025-11-01",
+  "orderNumber": "ORD123456",
+  "incidents": {
+    "businessKey": "some_business_key1",
+    "queue": "some_queue",
+    "clientNumber": "C123456",
+    "incidentNumber": "INC123456",
+    "incidentSource": "some_source"
+  }
+}
