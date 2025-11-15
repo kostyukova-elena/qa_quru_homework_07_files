@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ class ZipParsingTest {
 
 
     @Test
-    void testPdfContentInZip() {
+    void testPdfContentInZip() throws IOException {
         String pdfFileName = "Instructions.pdf";
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipPath))) {
@@ -50,19 +51,15 @@ class ZipParsingTest {
                         assertNotNull(pdfText); // Проверяем, что файл не Null
                         assertTrue(pdfText.contains("Общая информация о курсе")); // Проверяем, что в файле содержится текст
                         assertEquals(13, document.getNumberOfPages()); // Проверяем количество страниц
-                    } catch (Exception ex) {
-                        log.error(String.valueOf(ex.getCause()));
                     }
                     break;
                 }
             }
-        } catch (Exception ex) {
-            log.error(String.valueOf(ex.getCause()));
         }
     }
 
     @Test
-    void testXlsxContentInZip() {
+    void testXlsxContentInZip() throws IOException {
         String xlsxFileName = "Books.xlsx";
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipPath))) {
@@ -100,19 +97,15 @@ class ZipParsingTest {
                             Cell cellB2 = secondRow.getCell(1);
                             assertEquals("“Война и мир”", cellB2.getStringCellValue());// Проверяем содержимое ячейки B2
                         }
-                    } catch (Exception ex) {
-                        log.error(String.valueOf(ex.getCause()));
                     }
                     break;
                 }
             }
-        } catch (Exception ex) {
-            log.error(String.valueOf(ex.getCause()));
         }
     }
 
     @Test
-    void testCsvContentInZip() {
+    void testCsvContentInZip() throws IOException {
         String csvFileName = "Users.csv";
 
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipPath))) {
@@ -128,8 +121,6 @@ class ZipParsingTest {
                         while ((line = reader.readLine()) != null) {
                             lines.add(line);
                         }
-                    } catch (Exception ex) {
-                        log.error(String.valueOf(ex.getCause()));
                     }
 
                     assertFalse(lines.isEmpty());
@@ -143,8 +134,6 @@ class ZipParsingTest {
                     break;
                 }
             }
-        } catch (Exception ex) {
-            log.error(String.valueOf(ex.getCause()));
         }
     }
 }
